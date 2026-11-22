@@ -8,7 +8,7 @@ import { PRIVACY_URL } from '../src/content/privacy';
 import { STATIC_ROUTES } from '../src/content/staticRoutes';
 import { buildLearnPages, buildSitemap, SITE } from '../src/content/learnPages';
 
-const LANGS = ['en', 'nb', 'es'] as const;
+const LANGS = ['en', 'nb', 'es', 'zh'] as const;
 const at = (lang: string, url: string) => `${lang === 'en' ? '' : `/${lang}`}${url}`;
 
 describe('Why sudokUI?', () => {
@@ -48,7 +48,7 @@ describe('Why sudokUI?', () => {
   });
 
   it('is a static page the service worker leaves alone, in the sitemap, and in every footer', () => {
-    for (const url of [WHY_URL, '/nb/why/', '/es/why', '/why']) expect(STATIC_ROUTES.test(url), url).toBe(true);
+    for (const url of [WHY_URL, '/nb/why/', '/es/why', '/zh/why', '/why']) expect(STATIC_ROUTES.test(url), url).toBe(true);
     const sitemap = buildSitemap(pages);
     for (const lang of LANGS) expect(sitemap).toContain(`<loc>${SITE}${byLang[lang].url}</loc>`);
     for (const page of pages) expect(page.html, page.url).toContain(`<a href="${at(page.lang, WHY_URL)}">${WHY[page.lang as 'en'].name}</a>`);

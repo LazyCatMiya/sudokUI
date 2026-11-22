@@ -44,17 +44,24 @@ import { learnText, LearnText, LandingText, langPrefix, exampleStep, METHOD_URL 
 import type { LearnString } from './learnStrings';
 import nb from './locales/nb';
 import es from './locales/es';
+import zh from './locales/zh';
 import engineNb from './locales/engine.nb';
 import engineEs from './locales/engine.es';
+import engineZh from './locales/engine.zh';
 
 export const SITE = 'https://sudokui.app';
 
-export const LEARN_LANGS: Lang[] = ['en', 'nb', 'es'];
-const TEXT: Record<Lang, LearnText> = { en: learnText('en'), nb: learnText('nb', nb), es: learnText('es', es) };
-const LANG_NAME: Record<Lang, string> = { en: 'English', nb: 'Norsk', es: 'Español' };
-const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES' };
+export const LEARN_LANGS: Lang[] = ['en', 'nb', 'es', 'zh'];
+const TEXT: Record<Lang, LearnText> = {
+  en: learnText('en'),
+  nb: learnText('nb', nb),
+  es: learnText('es', es),
+  zh: learnText('zh', zh)
+};
+const LANG_NAME: Record<Lang, string> = { en: 'English', nb: 'Norsk', es: 'Español', zh: '繁體中文' };
+const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES', zh: 'zh_Hant' };
 /** the engine's sentences in each language; English is its templates themselves */
-const ENGINE_TEXT: Record<Lang, EngineTable | null> = { en: null, nb: engineNb, es: engineEs };
+const ENGINE_TEXT: Record<Lang, EngineTable | null> = { en: null, nb: engineNb, es: engineEs, zh: engineZh };
 
 export interface Page {
   /** file path inside dist/, e.g. learn/x-wing/index.html */

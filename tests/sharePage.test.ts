@@ -44,7 +44,7 @@ import type { Lang } from '../src/state/settings';
 const EASY = '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..';
 /** a Hard puzzle (rated 1348 when written) whose path plays named techniques */
 const HARD = '...6..9.1..95....4....4985..241....5....3....9....546..7549....3....12..1.2..3...';
-const OTHER: Lang[] = ['nb', 'es'];
+const OTHER: Lang[] = ['nb', 'es', 'zh'];
 const TECH_KEYS = Object.keys(TECHS) as Tech[];
 
 const url = (path: string) => new URL(path, SITE);

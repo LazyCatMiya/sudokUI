@@ -700,7 +700,7 @@ describe('the landing count', () => {
     ) as { assets: { run_worker_first: string[] } };
     const first = config.assets.run_worker_first;
     for (const path of HOME_PATHS) expect(first, path).toContain(path);
-    expect(HOME_PATHS).toEqual(['/', '/nb/', '/es/']);
+    expect(HOME_PATHS).toEqual(['/', '/nb/', '/es/', '/zh/']);
     // no pattern that would send every page through the Worker
     expect(first).not.toContain('/*');
     expect(first.filter((p) => !p.includes('*') && p.endsWith('/'))).toEqual(HOME_PATHS);

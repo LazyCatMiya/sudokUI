@@ -16,7 +16,8 @@ const loaded: Partial<Record<Lang, LearnLocale>> = {};
 const pending: Partial<Record<Lang, Promise<LearnLocale | undefined>>> = {};
 const loaders: Record<Exclude<Lang, 'en'>, () => Promise<{ default: LearnLocale }>> = {
   nb: () => import('../content/locales/nb'),
-  es: () => import('../content/locales/es')
+  es: () => import('../content/locales/es'),
+  zh: () => import('../content/locales/zh')
 };
 
 /** fetches a language's Learn translation once; undefined for English or on failure */

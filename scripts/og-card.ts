@@ -7,9 +7,9 @@
  * pencil mark and the eliminated candidates are shown in red — the same
  * visual language the app uses for hints.
  *
- * Usage: npx vite-node scripts/og-card.ts <out.svg> [en|nb|es]
- * (public/og-card.png is English; og-card.nb.png and og-card.es.png carry
- * the same card in Norwegian and Spanish for /nb/ and /es/.)
+ * Usage: npx vite-node scripts/og-card.ts <out.svg> [en|nb|es|zh]
+ * (public/og-card.png is English; og-card.nb.png, og-card.es.png and
+ * og-card.zh.png carry the same card for /nb/, /es/ and /zh/.)
  * Then rasterise to 1200x630 PNG (e.g. headless Chrome --screenshot).
  */
 import { writeFileSync } from 'node:fs';
@@ -38,10 +38,11 @@ console.log(`X-Wing on ${digit}s, cells ${[...pattern]}, elims ${[...elims]}`);
 const WORDS: Record<string, { tagline: string; lines: string[] }> = {
   en: { tagline: 'Play · Practise · Rate', lines: ['77 solving techniques, explainable hints,', 'shareable puzzles. Free &amp; open source.'] },
   nb: { tagline: 'Spill · Øv · Vurder', lines: ['77 teknikker med hint som forklarer.', 'Gratis, uten reklame, åpen kildekode.'] },
-  es: { tagline: 'Juega · Practica · Puntúa', lines: ['77 técnicas con pistas que lo explican.', 'Gratis, sin anuncios, de código abierto.'] }
+  es: { tagline: 'Juega · Practica · Puntúa', lines: ['77 técnicas con pistas que lo explican.', 'Gratis, sin anuncios, de código abierto.'] },
+  zh: { tagline: '遊玩 · 練習 · 評分', lines: ['77 種解題技巧，提示逐步說明。', '免費、無廣告、開源。'] }
 };
 const words = WORDS[process.argv[3] ?? 'en'];
-if (!words) throw new Error('language: en, nb or es');
+if (!words) throw new Error('language: en, nb, es or zh');
 
 const CELL = 420 / 9;
 const parts: string[] = [];

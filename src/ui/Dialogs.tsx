@@ -1404,6 +1404,7 @@ export function GeneratingDialog({ label, attempts, onCancel }: { label: GenRequ
 const ordinal = (n: number, lang: Lang) => {
   if (lang === 'nb') return `${n}.`;
   if (lang === 'es') return `${n}.ª`;
+  if (lang === 'zh') return `第${n}`;
   const s = ['th', 'st', 'nd', 'rd'];
   const v = n % 100;
   return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);

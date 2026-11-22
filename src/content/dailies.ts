@@ -155,7 +155,7 @@ export const findDaily = (dailies: Daily[], date: string): Daily | undefined => 
 // ---- the address ------------------------------------------------------------
 
 /** the share address of a daily, in any language, with or without a trailing slash */
-export const DAILY_PATH = /^\/(?:(nb|es)\/)?daily\/(\d{4}-\d{2}-\d{2})\/?$/;
+export const DAILY_PATH = /^\/(?:(nb|es|zh)\/)?daily\/(\d{4}-\d{2}-\d{2})\/?$/;
 
 /** the daily an address points at, with a challenger's time (?vs=, as share.ts reads it) if one rides along; null otherwise */
 export function parseDailyUrl(url: { pathname: string; search?: string }): { lang: Lang; date: string; vs?: number } | null {

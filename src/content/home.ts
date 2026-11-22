@@ -26,8 +26,8 @@ import { seasonLine } from './adventLine';
 export const SITE = 'https://sudokui.app';
 const SOURCE = 'https://github.com/AImenes/sudokUI';
 
-export const HOME_LANGS: Lang[] = ['en', 'nb', 'es'];
-const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES' };
+export const HOME_LANGS: Lang[] = ['en', 'nb', 'es', 'zh'];
+const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES', zh: 'zh_Hant' };
 
 /** the home page's path in a language: /, /nb/, /es/ (langRoot in i18n.ts) */
 export const homePath = (lang: Lang) => (lang === 'en' ? '/' : `/${lang}/`);
@@ -37,7 +37,7 @@ export const ogCard = (lang: Lang) => `${SITE}/og-card${lang === 'en' ? '' : `.$
 
 /** the language a home address stands for, /nb/ or /es/; null for / (langOfPath in i18n.ts) */
 export function homeLangOfPath(path: string): Lang | null {
-  const m = /^\/(nb|es)\/?$/.exec(path);
+  const m = /^\/(nb|es|zh)\/?$/.exec(path);
   return m ? (m[1] as Lang) : null;
 }
 
@@ -54,7 +54,7 @@ export function homeLangOfPath(path: string): Lang | null {
  * offline as well, and the app reads the puzzle or the day from the path.
  * Everything else is a real document or a real 404.
  */
-export const APP_NAVIGATION = /^\/(?:(?:nb|es)\/)?(?:p\/[0-9.]{81}\/?|daily\/\d{4}-\d{2}-\d{2}\/?|advent\/\d{4}\/\d{1,2}\/?)?(?:\?.*)?$/;
+export const APP_NAVIGATION = /^\/(?:(?:nb|es|zh)\/)?(?:p\/[0-9.]{81}\/?|daily\/\d{4}-\d{2}-\d{2}\/?|advent\/\d{4}\/\d{1,2}\/?)?(?:\?.*)?$/;
 
 /** a page under a language's prefix: /learn/ in English, /nb/learn/ in Norwegian */
 const inLang = (lang: Lang, path: string) => (lang === 'en' ? path : `/${lang}${path}`);
@@ -186,6 +186,40 @@ export const HOME: Record<Lang, HomeCopy> = {
     ],
     loading: 'Cargando el tablero…',
     noscript: 'sudokUI necesita JavaScript para funcionar. La app es gratuita y de código abierto:'
+  },
+  zh: {
+    title: '免費數獨線上玩：練習技巧、評定難度，並用提示逐步學會完整解法 | sudokUI',
+    description:
+      '免費線上玩數獨，以相容 HoDoKu 的評分判斷任何題目的難度，並透過逐步解說每一步的提示練習 61 種解題技巧。完全免費、沒有廣告、也不必註冊帳號；可離線遊玩，也能把題目與盤面連結分享給朋友一起挑戰與練習，適合新手到進階玩家的每日練習使用。',
+    ogTitle: 'sudokUI：免費數獨、技巧訓練與難度評分',
+    ogDescription:
+      '玩數獨、以相容 HoDoKu 的評分判斷任何題目的難度，並透過逐步解說的提示練習 61 種解題技巧。免費、可離線使用且無廣告。',
+    ogImageAlt: 'sudokUI：遊玩、練習並評定數獨難度。盤面上醒目標示一個 X-Wing 圖形。',
+    appDescription:
+      '免費開源的數獨應用程式，能以相容 HoDoKu 的評分判斷任何題目的難度，並用逐步解說的提示教你 61 種具名解題技巧。',
+    requirements: '需要 JavaScript',
+    features: [
+      '為任何數獨提供 HoDoKu 評分，涵蓋 HoDoKu 的五個難度等級',
+      '77 種經機器驗證的解題技巧，附逐步提示',
+      '61 種具名技巧的練習模式，從 X-Wing 到 Death Blossom',
+      '逐步指出並解釋每一步的數獨解題器',
+      '全球相同的每日數獨',
+      '可分享題目與盤面位置的連結',
+      '可離線遊玩、無廣告、免帳號'
+    ],
+    h1: 'sudokUI',
+    intro:
+      '一款用來遊玩、練習並評定題目難度的免費開源數獨應用程式。它以相容 HoDoKu 的評分判斷任何數獨的難度，掌握 77 種解題技巧，並以提示逐步解釋；其中 61 種可在練習模式中訓練，從 X-Wing 到 Death Blossom。每天提供一道全球相同的每日數獨，無廣告、免帳號，也可離線使用。',
+    links: [
+      '數獨解題技巧詳解',
+      'HoDoKu 評分如何運作',
+      '逐步解釋的數獨解題器',
+      '每日數獨',
+      '在瀏覽器中取得相容 HoDoKu 的評分',
+      '數獨詞彙表'
+    ],
+    loading: '正在載入盤面…',
+    noscript: 'sudokUI 需要 JavaScript 才能執行。此應用程式免費且開源：'
   }
 };
 

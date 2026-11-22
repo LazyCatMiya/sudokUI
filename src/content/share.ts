@@ -31,6 +31,7 @@ import type { AdventDoor } from './advent';
 import { ADVENT_PAGE, adventCardPath, fillAdvent } from './adventPage';
 import * as namesNb from './locales/names.nb';
 import * as namesEs from './locales/names.es';
+import * as namesZh from './locales/names.zh';
 
 /** what a share address carries */
 export interface ShareParams {
@@ -62,7 +63,7 @@ export interface ShareParams {
 export const SHARE_TECHS = 3;
 
 /** the path of a share address, in any language, with or without a trailing slash */
-export const SHARE_PATH = /^\/(?:(nb|es)\/)?p\/([0-9.]{81})\/?$/;
+export const SHARE_PATH = /^\/(?:(nb|es|zh)\/)?p\/([0-9.]{81})\/?$/;
 
 /** a level by its slug in a link; the slugs of the bands from before HoDoKu's five levels read as their level (?b=tricky is Hard) */
 const LEVEL_BY_SLUG = new Map<string, Level>(
@@ -387,29 +388,65 @@ export const SHARE: Record<Lang, ShareCopy> = {
     ogImageAltUnknown: 'Un sudoku en sudokUI',
     loading: 'Cargando el sudoku…',
     noscript: 'sudokUI necesita JavaScript para funcionar. La app es gratuita y de código abierto:'
+  },
+  zh: {
+    title: '{level}數獨，HoDoKu 評分 {score} | sudokUI',
+    titleNoScore: '{level}數獨 | sudokUI',
+    titleUnknown: '一道等你解開的數獨 | sudokUI',
+    ogTitle: '你能解開這道{level}數獨嗎？',
+    ogTitleUnknown: '你能解開這道數獨嗎？',
+    ogTitleVs: '在 {time} 內解開。你能超越嗎？',
+    description: '{a}{level}數獨，HoDoKu 評分為 {score}{techs}。在 sudokUI 免費遊玩，並取得逐步解說的提示。',
+    descriptionNoScore: '{a}{level}數獨{techs}。在 sudokUI 免費遊玩，並取得逐步解說的提示。',
+    descriptionUnknown: '一道從 sudokUI 分享的數獨。免費遊玩，並取得逐步解說的提示。',
+    titleDaily: '每日數獨 #{no}：{level}，HoDoKu 評分 {score} | sudokUI',
+    ogTitleDaily: 'sudokUI 每日數獨 #{no}，{date}：你能解開嗎？',
+    ogTitleDailyVs: '每日數獨 #{no}：在 {time} 內解開。你能超越嗎？',
+    descriptionDaily:
+      '{date} 的每日數獨：{a}{level}數獨，HoDoKu 評分為 {score}。同一天，所有人遊玩同一盤。可在 sudokUI 免費遊玩。',
+    titleDailyLocked: '每日數獨 #{no} 將於 {date} 開放 | sudokUI',
+    ogTitleDailyLocked: 'sudokUI 每日數獨 #{no} 將於 {date} 開放',
+    descriptionDailyLocked: 'sudokUI 的 {date} 每日數獨會在當天依你的時鐘於午夜開放。同一天，所有人遊玩同一盤。',
+    titleAdvent: '小門 {door} · {level} {score} · sudokUI 聖誕倒數日曆',
+    ogTitleAdvent: '小門 {door} · sudokUI 聖誕倒數日曆',
+    ogTitleAdventVs: '小門 {door}：在 {time} 內解開。你能超越嗎？',
+    descriptionAdvent:
+      'sudokUI 聖誕倒數日曆的小門 {door}，{date}：{a}{level}數獨，HoDoKu 評分為 {score}。所有人遊玩同一盤。免費遊玩。',
+    titleAdventLocked: '聖誕倒數日曆的小門 {door} 將於 {date} 開放 | sudokUI',
+    descriptionAdventLocked:
+      'sudokUI 聖誕倒數日曆的小門 {door} 將於 {date} 開放。12 月 1 日至 24 日每天一道數獨，每一道都比前一道稍難。',
+    needing: '，需要使用 {list}',
+    vs: '在 sudokUI 以 {time} 解開：你能超越嗎？',
+    and: '和',
+    ogImageAltAdvent: 'sudokUI 聖誕倒數日曆小門 {door} 後方的圖片',
+    ogImageAlt: 'sudokUI 上的{a}{level}數獨',
+    ogImageAltUnknown: 'sudokUI 上的一道數獨',
+    loading: '正在載入題目…',
+    noscript: 'sudokUI 需要 JavaScript 才能執行。此應用程式免費且開源：'
   }
 };
 
 const SOURCE = 'https://github.com/AImenes/sudokUI';
-const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES' };
+const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES', zh: 'zh_Hant' };
 /** how each language writes a date (i18n.ts, LANGS) */
-const DATE_LOCALE: Record<Lang, string> = { en: 'en-GB', nb: 'nb-NO', es: 'es-ES' };
+const DATE_LOCALE: Record<Lang, string> = { en: 'en-GB', nb: 'nb-NO', es: 'es-ES', zh: 'zh-Hant-TW' };
 
 /** the article that opens "{a} {level} sudoku": English needs "An" before Easy, Unfair and Extreme */
 const ARTICLE: Record<Lang, (levelName: string) => string> = {
   en: (name) => (/^[aeiou]/i.test(name) ? 'An' : 'A'),
   nb: () => 'En',
-  es: () => 'Un'
+  es: () => 'Un',
+  zh: () => '一道'
 };
 
 /** a band's name in a language (names.nb.ts, names.es.ts; English is the key) */
 export function levelName(level: Level, lang: Lang): string {
-  return lang === 'nb' ? namesNb.levels[level] : lang === 'es' ? namesEs.levels[level] : level;
+  return lang === 'nb' ? namesNb.levels[level] : lang === 'es' ? namesEs.levels[level] : lang === 'zh' ? namesZh.levels[level] : level;
 }
 
 /** a technique's name in a language: its own where the language has one, else English */
 export function techName(tech: Tech, lang: Lang): string {
-  const own = lang === 'nb' ? namesNb.techNames[tech] : lang === 'es' ? namesEs.techNames[tech] : undefined;
+  const own = lang === 'nb' ? namesNb.techNames[tech] : lang === 'es' ? namesEs.techNames[tech] : lang === 'zh' ? namesZh.techNames[tech] : undefined;
   return own ?? TECHS[tech].name;
 }
 

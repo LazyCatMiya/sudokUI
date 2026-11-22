@@ -16,15 +16,18 @@ import { LANDING_PAGES } from '../src/content/landing';
 import { linkGlossary } from '../src/content/glossaryLinks';
 import nb from '../src/content/locales/nb';
 import es from '../src/content/locales/es';
+import zh from '../src/content/locales/zh';
 
 const LOCALES: [string, LearnLocale][] = [
   ['nb', nb],
-  ['es', es]
+  ['es', es],
+  ['zh', zh]
 ];
 
 const BANDS: Record<string, string[]> = {
   nb: ['Nybegynner', 'Lett', 'Middels', 'Vanskelig', 'Urettferdig', 'Ekstrem', 'Mareritt'],
-  es: ['Principiante', 'Fácil', 'Medio', 'Difícil', 'Injusto', 'Extremo', 'Pesadilla']
+  es: ['Principiante', 'Fácil', 'Medio', 'Difícil', 'Injusto', 'Extremo', 'Pesadilla'],
+  zh: ['初學者', '簡單', '中等', '困難', '不公平', '極難', '惡夢']
 };
 
 const words = (s: string) => s.trim().split(/\s+/).length;

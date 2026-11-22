@@ -34,7 +34,8 @@ import { categoryLabel } from './categories';
 export const LANGS: { value: Lang; name: string; tag: string; locale: string }[] = [
   { value: 'en', name: 'English', tag: 'en', locale: 'en-GB' },
   { value: 'nb', name: 'Norsk', tag: 'nb', locale: 'nb-NO' },
-  { value: 'es', name: 'Español', tag: 'es', locale: 'es-ES' }
+  { value: 'es', name: 'Español', tag: 'es', locale: 'es-ES' },
+  { value: 'zh', name: '繁體中文', tag: 'zh-Hant', locale: 'zh-Hant-TW' }
 ];
 
 export type Dictionary = Record<string, string>;
@@ -121,7 +122,7 @@ export const langRoot = (lang: Lang) => (lang === 'en' ? '/' : `/${lang}/`);
  * else
  */
 export function langOfPath(path: string): Lang | null {
-  const m = /^\/(nb|es)(?:\/(?:p\/[0-9.]{81}\/?|daily\/\d{4}-\d{2}-\d{2}\/?|advent\/\d{4}\/\d{1,2}\/?)?)?$/.exec(path);
+  const m = /^\/(nb|es|zh)(?:\/(?:p\/[0-9.]{81}\/?|daily\/\d{4}-\d{2}-\d{2}\/?|advent\/\d{4}\/\d{1,2}\/?)?)?$/.exec(path);
   return m ? (m[1] as Lang) : null;
 }
 
@@ -132,7 +133,8 @@ export const useLocales = create<{ loaded: Partial<Record<Lang, AppLocale>> }>((
 
 const loaders: Record<Exclude<Lang, 'en'>, () => Promise<{ default: AppLocale }>> = {
   nb: () => import('./locales/app.nb'),
-  es: () => import('./locales/app.es')
+  es: () => import('./locales/app.es'),
+  zh: () => import('./locales/app.zh')
 };
 const loading: Partial<Record<Lang, Promise<void>>> = {};
 
@@ -168,7 +170,7 @@ export function startLocales(): Promise<void> {
     // changes: a link's puzzle or day not yet read stays in it
     if (typeof window !== 'undefined' && langOfPath(window.location.pathname)) {
       const { pathname, search, hash } = window.location;
-      const rest = pathname.replace(/^\/(nb|es)(?=\/|$)/, '').replace(/^\//, '');
+      const rest = pathname.replace(/^\/(nb|es|zh)(?=\/|$)/, '').replace(/^\//, '');
       window.history.replaceState(window.history.state, '', langRoot(s.lang) + rest + search + hash);
       // and the tab's title is that address's own (src/content/home.ts, fetched only here)
       import('./home').then((m) => (document.title = m.HOME[s.lang].title)).catch(() => {});

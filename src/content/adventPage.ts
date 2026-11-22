@@ -157,6 +157,38 @@ export const ADVENT_PAGE: Record<Lang, AdventPageCopy> = {
     inApp: 'A partir del 1 de noviembre, el calendario también está en sudokUI, en Nuevo. Sus casillas se abren a partir del 1 de diciembre.',
     imageAlt: 'El calendario de adviento {year} de sudokUI: 24 casillas, algo más difícil cada día.',
     item: 'Casilla {door}, {date}: {level}, puntuación HoDoKu {score}'
+  },
+  zh: {
+    name: '聖誕倒數日曆',
+    title: '{year} 數獨聖誕倒數日曆：每天稍難一點',
+    description:
+      '24 扇小門後各有一道數獨，12 月 1 日至 24 日每天開一扇。起初非常簡單，之後每天稍難一點，最高到中等。免費且免帳號。',
+    h1: '{year} 數獨聖誕倒數日曆',
+    lead:
+      '24 扇小門，分別對應 12 月 1 日至 24 日的每一天，每扇門後都有一道數獨。第 1 扇非常簡單，之後每扇都比前一扇稍難；最後幾道會達到不錯的中等難度。所有人在同一扇門後都會取得相同題目。',
+    statusStatic: '{year} 年 12 月 1 日開啟第 1 扇小門，12 月 24 日開啟第 24 扇。',
+    status: {
+      before: '日曆將於 {year} 年 12 月 1 日開放。在此之前，所有小門都會上鎖。',
+      day: '第 {door} 扇小門今天已開啟。所有已開啟的小門會保持開放至 12 月 31 日。',
+      all: '全部 24 扇小門皆已開啟，並會保持開放至 12 月 31 日。',
+      over: '{year} 年日曆已關閉。你已開始的小門會保留在應用程式中，可以繼續完成。'
+    },
+    doorsHeading: '24 扇小門',
+    doorsNote: '每扇小門都會顯示日期、難度等級與 HoDoKu 評分。開啟的小門會帶你前往 sudokUI 中的題目。',
+    door: '小門',
+    state: { locked: '已上鎖', open: '已開啟', today: '今天', closed: '已關閉' },
+    howHeading: '運作方式',
+    how: [
+      '每扇小門會在當天依你的時鐘於午夜開啟，並保持開放至 12 月 31 日，因此錯過的日子仍可補玩。日期尚未到的小門會上鎖：任何連結或網址都無法提早開啟。',
+      '第 1 扇小門後的題目在 HoDoKu 量表上約為 100 分，第 24 扇約為 {top} 分，而且每扇的評分都比前一扇高。第 1 至 {easy} 扇為簡單：只需使用唯一數。第 {medium} 至 24 扇為中等：還需要使用鎖定候選數、數對或數三。每扇小門都會顯示難度與評分，讓你知道接下來的挑戰。',
+      '若你未使用「協助」方塊中的任何功能（例如提示、檢查或自動候選數）便解開一扇小門，就能從勝利畫面送出時間，查看它在所有人之中的排名；可於該小門當天至最多一週後送出。',
+      '自 1 月 1 日起，日曆會關閉。你已開始的小門會保留在應用程式中，可以繼續完成。'
+    ],
+    play: '開啟 sudokUI',
+    daily: '遊玩今天的每日數獨',
+    inApp: '自 11 月 1 日起，日曆也會出現在 sudokUI 的「新增」中；小門自 12 月 1 日起開啟。',
+    imageAlt: 'sudokUI {year} 年聖誕倒數日曆：24 扇小門，每天稍難一點。',
+    item: '小門 {door}，{date}：{level}，HoDoKu 評分 {score}'
   }
 };
 
@@ -168,7 +200,7 @@ export const ADVENT_PAGE: Record<Lang, AdventPageCopy> = {
 export const adventCardPath = (lang: Lang, year: number) => `/og-advent-${year}${lang === 'en' ? '' : `.${lang}`}.png`;
 
 /** the date formats a door's day is written in (the app's own, src/content/i18n.ts LANGS) */
-export const ADVENT_LOCALE: Record<Lang, string> = { en: 'en-GB', nb: 'nb-NO', es: 'es-ES' };
+export const ADVENT_LOCALE: Record<Lang, string> = { en: 'en-GB', nb: 'nb-NO', es: 'es-ES', zh: 'zh-Hant-TW' };
 
 /** {name} placeholders filled */
 export const fillAdvent = (text: string, vars: Record<string, string | number>) =>

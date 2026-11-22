@@ -26,14 +26,17 @@ import { readSource, placeholders, holes, Finding } from './i18n-source';
 import { english } from '../src/content/i18n';
 import uiNb from '../src/content/locales/ui.nb';
 import uiEs from '../src/content/locales/ui.es';
+import uiZh from '../src/content/locales/ui.zh';
 import engineNb from '../src/content/locales/engine.nb';
 import engineEs from '../src/content/locales/engine.es';
+import engineZh from '../src/content/locales/engine.zh';
 
-const TABLES = { ui: { nb: uiNb, es: uiEs }, engine: { nb: engineNb, es: engineEs } };
+const TABLES = { ui: { nb: uiNb, es: uiEs, zh: uiZh }, engine: { nb: engineNb, es: engineEs, zh: engineZh } };
 
 interface Entry {
   nb: string;
   es: string;
+  zh: string;
   note?: string;
 }
 interface Fragment {
@@ -42,7 +45,7 @@ interface Fragment {
   engine?: Record<string, Entry>;
 }
 
-const LANGS = ['nb', 'es'] as const;
+const LANGS = ['nb', 'es', 'zh'] as const;
 const args = process.argv.slice(2);
 
 function check(path: string): string[] {

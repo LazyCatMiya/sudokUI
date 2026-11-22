@@ -10,7 +10,7 @@
 // door's address, /advent/2026/5 (src/content/advent.ts), is the app's,
 // which an installed app answers offline (tests/advent.test.ts).
 export const STATIC_ROUTES =
-  /^\/(?:(?:(?:nb|es)\/)?(?:learn|daily-sudoku|sudoku-solver|sudoku-difficulty-rating|hodoku|how-the-best-solve|privacy|why)(?:\/|$)|advent\/?(?:\?|$)|nb\/julekalender(?:\/|$)|es\/calendario-de-adviento(?:\/|$))/;
+  /^\/(?:(?:(?:nb|es|zh)\/)?(?:learn|daily-sudoku|sudoku-solver|sudoku-difficulty-rating|hodoku|how-the-best-solve|privacy|why)(?:\/|$)|advent\/?(?:\?|$)|nb\/julekalender(?:\/|$)|es\/calendario-de-adviento(?:\/|$)|zh\/advent-calendar(?:\/|$))/;
 
 export const RATING_URL = '/sudoku-difficulty-rating/';
 
@@ -22,10 +22,10 @@ export const PRIVACY_URL = '/privacy/';
  * page, the one the app's own footer opens in place, in each language
  * (about 7 KB compressed apiece). The rest are read online.
  */
-export const OFFLINE_PAGES = [PRIVACY_URL, `/nb${PRIVACY_URL}`, `/es${PRIVACY_URL}`];
+export const OFFLINE_PAGES = [PRIVACY_URL, `/nb${PRIVACY_URL}`, `/es${PRIVACY_URL}`, `/zh${PRIVACY_URL}`];
 
 /** what sudokUI is for and promises, in the three languages (src/content/why.ts) */
 export const WHY_URL = '/why/';
 
 /** the advent calendar's page in each language (src/content/adventPage.ts): each has its own name */
-export const ADVENT_URLS = { en: '/advent/', nb: '/nb/julekalender/', es: '/es/calendario-de-adviento/' } as const;
+export const ADVENT_URLS = { en: '/advent/', nb: '/nb/julekalender/', es: '/es/calendario-de-adviento/', zh: '/zh/advent-calendar/' } as const;

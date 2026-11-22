@@ -134,5 +134,41 @@ export const WHY: Record<Lang, WhyCopy> = {
     ],
     privacyLink: 'consulta la página de privacidad',
     feedbackLink: 'envía tus comentarios desde la app'
+  },
+  zh: {
+    name: '為什麼選擇 sudokUI？',
+    title: '為什麼選擇 sudokUI？免費又能教你的數獨應用程式',
+    description:
+      '免費數獨應用程式，提示會在你的棋盤上畫出並解釋技巧。提供 HoDoKu 評分與學習路徑，可離線使用，無廣告且免帳號。',
+    lead:
+      'sudokUI 讓你不受雜亂干擾地玩數獨，也幫助你精進解題能力。卡關時，提示會在你自己的棋盤上逐步顯示技巧，並解釋其原理，讓你下次能自行看出來。想學特定技巧嗎？選擇一種技巧，就會取得需要用到它的題目。',
+    sections: [
+      {
+        heading: '包含哪些內容',
+        paragraphs: [
+          '人類解題者使用的所有技巧，均依 HoDoKu 的方式找出並評分（感謝其作者 Bernhard Hobiger）。另有依你自己的遊戲建立的學習路徑、鏈技巧訓練器、每日數獨，以及每種技巧的指南。提供英文、挪威文、西班牙文與繁體中文。'
+        ]
+      },
+      {
+        heading: '始終不變的原則',
+        paragraphs: [
+          '免費：無廣告、無付費牆、免帳號。你的遊戲資料留在裝置上。我們會統計開始與完成的遊戲，但不含識別碼，也沒有任何能區分你的資料（{privacy}）。這是一款可安裝的網頁應用程式，也能離線運作：只要載入一次，即使搭乘七小時的班機也能繼續使用。只有網站文章與每日數獨的全球時間需要網路連線。'
+        ]
+      },
+      {
+        heading: '我們的目標',
+        paragraphs: [
+          '在手機、平板電腦或電腦上提供最好的解題引擎與遊玩棋盤，並以醒目標示呈現重要資訊。輕巧、快速且不打擾你：沒有動態消息、沒有追蹤者，也不會因中斷連續紀錄而令人內疚。'
+        ]
+      },
+      {
+        heading: '製作者',
+        paragraphs: [
+          '由 GitHub 上的 AImenes 與 Claude 共同製作。它永遠都在持續改進，我們會閱讀每一則訊息：點選提示下方的「看起來不對嗎？」，或{feedback}。'
+        ]
+      }
+    ],
+    privacyLink: '查看隱私權頁面',
+    feedbackLink: '從應用程式傳送意見'
   }
 };

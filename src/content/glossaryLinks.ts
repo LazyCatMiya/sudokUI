@@ -23,16 +23,19 @@ const UNLINKED = new Set(['chain', 'node', 'wing', 'fish', 'x-wing', 'swordfish'
 // (Steps, also any steps), "revisar" (Check, also "to check")
 const UNLINKED_IN: Partial<Record<Lang, Set<string>>> = {
   nb: new Set(['sees', 'steps', 'check', 'fin']),
-  es: new Set(['single', 'steps', 'check'])
+  es: new Set(['single', 'steps', 'check']),
+  // Chinese has no plural inflection; keep common short words from linking everywhere
+  zh: new Set(['steps', 'check'])
 };
 
 // the endings a term may carry in running text: plurals in English and
 // Spanish; plurals and the definite forms in Norwegian (rute, ruten, ruter,
-// rutene; par, paret; mengde, mengden)
+// rutene; par, paret; mengde, mengden); Chinese has no inflection
 const SUFFIX: Record<Lang, string> = {
   en: '(?:s|es)?',
   es: '(?:s|es)?',
-  nb: '(?:ene|ne|en|et|er|n|r|e|a|s)?'
+  nb: '(?:ene|ne|en|et|er|n|r|e|a|s)?',
+  zh: ''
 };
 
 interface Label {

@@ -143,7 +143,8 @@ export function percentileText(percentile: number): string {
 const HOURS: Record<Lang, (h: number, m: number) => string> = {
   en: (h, m) => (m ? `${h}h ${m}m` : `${h}h`),
   nb: (h, m) => (m ? `${h} t ${m} min` : `${h} t`),
-  es: (h, m) => (m ? `${h} h ${m} min` : `${h} h`)
+  es: (h, m) => (m ? `${h} h ${m} min` : `${h} h`),
+  zh: (h, m) => (m ? `${h} 小時 ${m} 分` : `${h} 小時`)
 };
 
 /** 4:30 for 270 seconds; past the hour, hours and minutes the language's way */

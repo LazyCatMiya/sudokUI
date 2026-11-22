@@ -114,7 +114,7 @@ export const calendarYears = (doors: AdventDoor[]): number[] =>
 // ---- the address ------------------------------------------------------------
 
 /** a door's address, in any language, with or without a trailing slash: /advent/2026/5, /nb/advent/2026/5 */
-export const ADVENT_PATH = /^\/(?:(nb|es)\/)?advent\/(\d{4})\/(\d{1,2})\/?$/;
+export const ADVENT_PATH = /^\/(?:(nb|es|zh)\/)?advent\/(\d{4})\/(\d{1,2})\/?$/;
 
 /** the door an address points at, with a challenger's time (?vs=) if one rides along; null otherwise */
 export function parseAdventUrl(url: { pathname: string; search?: string }): { lang: Lang; year: number; door: number; vs?: number } | null {

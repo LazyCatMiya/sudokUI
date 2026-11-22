@@ -489,7 +489,7 @@ function fromSudokuCoachUrl(url: URL): LinkResult {
 
 /** the app's own share link, on any origin: /p/<81 cells> (also under /nb/ and /es/) or #p=<81 cells> */
 function fromShareUrl(url: URL): LinkResult | null {
-  const m = /^\/(?:(?:nb|es)\/)?p\/([0-9.]{81})\/?$/.exec(url.pathname) ?? /(?:^#|&)p=([0-9.]{81})(?:&|$)/.exec(url.hash);
+  const m = /^\/(?:(?:nb|es|zh)\/)?p\/([0-9.]{81})\/?$/.exec(url.pathname) ?? /(?:^#|&)p=([0-9.]{81})(?:&|$)/.exec(url.hash);
   return m ? accept(m[1], 'sudokui') : null;
 }
 

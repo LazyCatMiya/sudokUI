@@ -15,7 +15,8 @@ import { ADVENT_URLS } from './staticRoutes';
 export const ADVENT_LINE: Record<Lang, string> = {
   en: 'Advent calendar: a sudoku behind each door, from 1 to 24 December',
   nb: 'Julekalender: en sudoku bak hver luke, fra 1. til 24. desember',
-  es: 'Calendario de adviento: un sudoku en cada casilla, del 1 al 24 de diciembre'
+  es: 'Calendario de adviento: un sudoku en cada casilla, del 1 al 24 de diciembre',
+  zh: '聖誕倒數日曆：12 月 1 日至 24 日，每扇小門後都有一道數獨'
 };
 
 /** the id of the line */

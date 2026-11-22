@@ -16,6 +16,7 @@ import { adventPath } from './advent';
 export function placeOrdinal(n: number, lang: Lang): string {
   if (lang === 'nb') return `${n}.`;
   if (lang === 'es') return `${n}.º`;
+  if (lang === 'zh') return `第${n}`;
   const v = n % 100;
   const s = ['th', 'st', 'nd', 'rd'];
   return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]);

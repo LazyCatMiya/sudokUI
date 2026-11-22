@@ -184,7 +184,8 @@ export interface LearnText {
 export function learnText(lang: Lang, loc: LearnLocale = EN): LearnText {
   const L = lang === 'en' ? EN : loc;
   const s = (key: LearnString, vars?: Record<string, string | number>) => fill(L.strings[key] ?? key, vars);
-  const num = (n: number) => n.toLocaleString(lang === 'nb' ? 'nb-NO' : lang === 'es' ? 'es-ES' : 'en');
+  const num = (n: number) =>
+    n.toLocaleString(lang === 'nb' ? 'nb-NO' : lang === 'es' ? 'es-ES' : lang === 'zh' ? 'zh-Hant-TW' : 'en');
   const text: LearnText = {
     lang,
     loc: L,

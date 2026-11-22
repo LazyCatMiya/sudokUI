@@ -84,7 +84,7 @@ const PUZZLE = /^[1-9.]{81}$/;
 const POSITION = /^[A-Za-z0-9_-]{1,1200}$/;
 const VERSION = /^[0-9A-Za-z.+-]{1,40}$/;
 const TECH = /^[A-Z0-9_]{1,40}$/;
-const LANGS = ['en', 'nb', 'es'];
+const LANGS = ['en', 'nb', 'es', 'zh'];
 const CONTRACTS = ['unknown', 'exhaustive', 'open'];
 /** control characters other than a line break and a tab: a pasted one becomes a space */
 const CONTROL = /[\u0000-\u0008\u000B-\u001F\u007F]/g;

@@ -8,6 +8,7 @@ import template from '../index.html?raw';
 import notFoundEn from '../public/404.html?raw';
 import notFoundNb from '../public/nb/404.html?raw';
 import notFoundEs from '../public/es/404.html?raw';
+import notFoundZh from '../public/zh/404.html?raw';
 import {
   HOME,
   HOME_LANGS,
@@ -26,9 +27,9 @@ import { COUNTS } from '../src/content/landing';
 import { buildLearnPages, SITE } from '../src/content/learnPages';
 import type { Lang } from '../src/state/settings';
 
-const OTHER: Lang[] = ['nb', 'es'];
+const OTHER: Lang[] = ['nb', 'es', 'zh'];
 const PAGE = Object.fromEntries(HOME_LANGS.map((l) => [l, renderHome(template, l)])) as Record<Lang, string>;
-const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES' };
+const OG_LOCALE: Record<Lang, string> = { en: 'en_GB', nb: 'nb_NO', es: 'es_ES', zh: 'zh_Hant' };
 
 /** the page with every attribute value and every text emptied: what is left is its structure */
 const structure = (html: string) =>
@@ -105,9 +106,10 @@ describe('the home page', () => {
         en: `${SITE}/`,
         nb: `${SITE}/nb/`,
         es: `${SITE}/es/`,
+        zh: `${SITE}/zh/`,
         'x-default': `${SITE}/`
       });
-      expect(alternates).toHaveLength(4);
+      expect(alternates).toHaveLength(5);
       expect(meta(html, 'og:locale')).toEqual([OG_LOCALE[lang]]);
       expect(meta(html, 'og:locale:alternate')).toEqual(HOME_LANGS.filter((l) => l !== lang).map((l) => OG_LOCALE[l]));
       expect(meta(html, 'og:title')).toHaveLength(1);
@@ -142,7 +144,7 @@ describe('the home page', () => {
 
   it('keeps titles and descriptions to what search results show', () => {
     // every language's title says what a searcher types, then the name
-    const searched: Record<string, string> = { en: 'free sudoku', nb: 'sudoku gratis', es: 'sudoku gratis' };
+    const searched: Record<string, string> = { en: 'free sudoku', nb: 'sudoku gratis', es: 'sudoku gratis', zh: '免費數獨' };
     for (const lang of HOME_LANGS) {
       const { title, description } = HOME[lang];
       expect(title.length, title).toBeLessThanOrEqual(60);
@@ -190,9 +192,9 @@ describe('the home page', () => {
   });
 
   it('lets the service worker answer only the home addresses with the app', () => {
-    for (const url of ['/', '/?utm_source=x', '/nb/', '/es/', '/nb/?gclid=1', '/es/?a=b&c=d'])
+    for (const url of ['/', '/?utm_source=x', '/nb/', '/es/', '/zh/', '/nb/?gclid=1', '/es/?a=b&c=d', '/zh/?a=1'])
       expect(APP_NAVIGATION.test(url), url).toBe(true);
-    for (const url of ['/nb', '/nb/learn/', '/es/hodoku/', '/learn/', '/de/', '/nb/x', '/index.html', '/nb/index.html'])
+    for (const url of ['/nb', '/nb/learn/', '/es/hodoku/', '/zh/learn/', '/learn/', '/de/', '/nb/x', '/index.html', '/nb/index.html'])
       expect(APP_NAVIGATION.test(url), url).toBe(false);
     // and no home address is mistaken for a static page
     for (const lang of HOME_LANGS) expect(STATIC_ROUTES.test(homePath(lang))).toBe(false);
@@ -200,7 +202,7 @@ describe('the home page', () => {
 });
 
 describe('the 404 pages', () => {
-  const PAGE404: Record<Lang, string> = { en: notFoundEn, nb: notFoundNb, es: notFoundEs };
+  const PAGE404: Record<Lang, string> = { en: notFoundEn, nb: notFoundNb, es: notFoundEs, zh: notFoundZh };
   const visible = (html: string) => [
     one(html, /<title>([^<]*)<\/title>/),
     html.slice(html.indexOf('<body>')).replace(/<[^>]+>/g, ' ')

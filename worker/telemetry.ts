@@ -95,7 +95,7 @@ export const HELPED = 'helped';
 export const ALONE = 'alone';
 
 /** the language the app was set to when the line was made (src/state/settings.ts, Lang) */
-export const PLAY_LANGS = ['en', 'nb', 'es'] as const;
+export const PLAY_LANGS = ['en', 'nb', 'es', 'zh'] as const;
 export type PlayLang = (typeof PLAY_LANGS)[number];
 
 /** the most events one request may carry */

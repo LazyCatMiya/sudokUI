@@ -332,7 +332,8 @@ const KIND_LABELS: Record<PlayKind, string> = {
 const LANG_LABELS: Record<PlayLang, string> = {
   en: 'English',
   nb: 'Norwegian',
-  es: 'Spanish'
+  es: 'Spanish',
+  zh: 'Chinese (Traditional)'
 };
 
 /** each word a landing's referrer becomes (telemetry.ts, landingWord) */

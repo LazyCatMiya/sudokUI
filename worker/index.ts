@@ -87,7 +87,7 @@ export interface Context {
 export const SHARE_TEMPLATE = '/share.tpl';
 
 /** the app's home page in each language, which wrangler.jsonc's run_worker_first sends here (src/content/home.ts) */
-export const HOME_PATHS = ['/', '/nb/', '/es/'];
+export const HOME_PATHS = ['/', '/nb/', '/es/', '/zh/'];
 
 /**
  * A share page names the current build's hashed scripts, which a deploy

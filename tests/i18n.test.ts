@@ -13,6 +13,7 @@ import { TECHS, Tech } from '../src/engine/ratings';
 import { readSource, placeholders, holes } from '../scripts/i18n-source';
 import nb from '../src/content/locales/app.nb';
 import es from '../src/content/locales/app.es';
+import zh from '../src/content/locales/app.zh';
 import { EXAMPLES } from '../src/content/examples';
 import { walkFrames } from '../src/engine/hintFrames';
 import { findStep } from '../src/engine/humanSolver';
@@ -22,6 +23,12 @@ import { parseGrid } from '../src/engine/board';
 import type { Step } from '../src/engine/steps';
 
 const LOCALES = [
+  ['nb', nb],
+  ['es', es],
+  ['zh', zh]
+] as const;
+/** walk wording fixtures cover Norwegian and Spanish; Chinese is checked by the tables above */
+const WALK_LOCALES = [
   ['nb', nb],
   ['es', es]
 ] as const;
@@ -34,9 +41,9 @@ const numbers = (s: string) => [...s.replace(/\{\w+\}/g, '').matchAll(/\d+/g)].m
 const symbols = (s: string) => [...s.matchAll(/\p{Extended_Pictographic}|[↩↪⌫⇄≡⌗✎✓⛓→←↗]/gu)].map((m) => m[0]).sort().join('');
 const cells = (s: string) => [...s.matchAll(/\br\d+c\d+\b/g)].map((m) => m[0]).sort().join(' ');
 
-describe('the interface in three languages', () => {
-  it('offers English, Norwegian and Spanish', () => {
-    expect(LANGS.map((l) => l.value)).toEqual(['en', 'nb', 'es']);
+describe('the interface in four languages', () => {
+  it('offers English, Norwegian, Spanish and Traditional Chinese', () => {
+    expect(LANGS.map((l) => l.value)).toEqual(['en', 'nb', 'es', 'zh']);
   });
 
   it('has no English left unwrapped in what people read', () => {
@@ -127,10 +134,12 @@ describe('translators', () => {
   it('know the app’s own addresses', () => {
     expect(langOfPath('/nb/')).toBe('nb');
     expect(langOfPath('/es')).toBe('es');
+    expect(langOfPath('/zh/')).toBe('zh');
     expect(langOfPath('/')).toBeNull();
     expect(langOfPath('/nb/learn/')).toBeNull();
     expect(langRoot('en')).toBe('/');
     expect(langRoot('es')).toBe('/es/');
+    expect(langRoot('zh')).toBe('/zh/');
   });
 });
 
@@ -179,7 +188,7 @@ describe('the set walk in three languages (docs/hint-drawing-sets.md, "The walk 
         group: /grupo/i
       }
     };
-    for (const [lang, loc] of LOCALES) {
+    for (const [lang, loc] of WALK_LOCALES) {
       setEngineText(lang, loc.engine);
       const w = want[lang];
       expect(walkFrames(aic).slice(1, 4).map((f) => f.text), lang).toEqual([w.intro, w.into, w.lock]);
@@ -220,7 +229,7 @@ describe('the set walk in three languages (docs/hint-drawing-sets.md, "The walk 
         legend: ['los candidatos del tallo, y el número de cada pétalo que el tallo ve', 'línea discontinua: sus dos extremos se ven entre sí, así que como mucho uno es verdadero']
       }
     };
-    for (const [lang, loc] of LOCALES) {
+    for (const [lang, loc] of WALK_LOCALES) {
       setEngineText(lang, loc.engine);
       const w = want[lang];
       expect(walkFrames(xz).at(-1)!.text.startsWith(`${w.ends} `), lang).toBe(true);
@@ -270,7 +279,7 @@ describe('the words of review round 1 in Norwegian and Spanish (docs/hint-drawin
       'barra: un grupo (las casillas de un número en una caja y una fila o columna), leído como un solo nodo'
     ]);
     expect([nb.ui[bar], es.ui[bar]]).toEqual([nb.engine[bar], es.engine[bar]]);
-    for (const [lang, loc] of LOCALES) {
+    for (const [lang, loc] of WALK_LOCALES) {
       const all = [...Object.values(loc.engine), ...Object.values(loc.ui)].join('\n');
       expect(all, lang).not.toMatch(lang === 'nb' ? /\bledd\b/ : /eslabón/);
     }
@@ -283,7 +292,7 @@ describe('the words of review round 1 in Norwegian and Spanish (docs/hint-drawin
       nb: 'ALS-XY-Wing: hengselet C (r6c3) har en 4 eller en 6, så vingen A (r8c3, r8c8) har ingen 4, eller vingen B (r4c9, r6c8) ingen 6, og da har den vingen en 7. ',
       es: 'ALS-XY-Wing: la bisagra C (r6c3) tiene un 4 o un 6, así que el ala A (r8c3, r8c8) no tiene ningún 4 o el ala B (r4c9, r6c8) ningún 6, y esa ala tiene entonces un 7. '
     };
-    for (const [lang, loc] of LOCALES) {
+    for (const [lang, loc] of WALK_LOCALES) {
       setEngineText(lang, loc.engine);
       expect(findStep('ALS_XY_WING', g)!.description, lang).toContain(want[lang]);
     }
@@ -314,7 +323,7 @@ describe('the words of review round 1 in Norwegian and Spanish (docs/hint-drawin
         shared: 'contorno discontinuo: una casilla de dos conjuntos; cada letra nombra uno de ellos'
       }
     };
-    for (const [lang, loc] of LOCALES) {
+    for (const [lang, loc] of WALK_LOCALES) {
       setEngineText(lang, loc.engine);
       const w = want[lang];
       const step = findStep('DEATH_BLOSSOM', g)!;

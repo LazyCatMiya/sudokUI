@@ -128,13 +128,16 @@ export type Font = 'classic' | 'rounded' | 'serif' | 'mono' | 'hand';
 
 /** the app's language: the interface, the hints and every other sentence the
  *  engine writes, and the Learn section (docs/translations.md) */
-export type Lang = 'en' | 'nb' | 'es';
+export type Lang = 'en' | 'nb' | 'es' | 'zh';
 
 /** the device's language, when it is one we have */
 export function deviceLang(): Lang {
   const tag = (typeof navigator !== 'undefined' ? navigator.language : 'en').toLowerCase();
   if (tag.startsWith('nb') || tag.startsWith('nn') || tag.startsWith('no')) return 'nb';
   if (tag.startsWith('es')) return 'es';
+  // Traditional Chinese (Taiwan, Hong Kong, Macau) and bare zh → 繁體中文
+  if (tag.startsWith('zh-hant') || tag.startsWith('zh-tw') || tag.startsWith('zh-hk') || tag.startsWith('zh-mo') || tag === 'zh')
+    return 'zh';
   return 'en';
 }
 
