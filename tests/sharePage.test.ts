@@ -382,7 +382,7 @@ describe('the share page', () => {
     for (const lang of OTHER) expect(structure(page({ ...full, lang })), lang).toBe(en);
     expect(structure(page({ lang: 'en', puzzle: EASY }))).toBe(en);
     for (const lang of HOME_LANGS) {
-      expect(meta(page({ ...full, lang }), 'og:locale')).toEqual([{ en: 'en_GB', nb: 'nb_NO', es: 'es_ES' }[lang]]);
+      expect(meta(page({ ...full, lang }), 'og:locale')).toEqual([{ en: 'en_GB', nb: 'nb_NO', es: 'es_ES', zh: 'zh_Hant' }[lang]]);
       expect(meta(page({ ...full, lang }), 'og:url')).toEqual([(SITE + sharePath({ ...full, lang })).replace(/&/g, '&amp;')]);
     }
     // the home page and the share page share the template, not the structure: no links block, no list

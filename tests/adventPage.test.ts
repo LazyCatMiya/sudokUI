@@ -377,7 +377,8 @@ describe('the advent calendar’s pages', () => {
     const climb: Record<Lang, RegExp[]> = {
       en: [/rated about 100 on HoDoKu’s scale, behind door 24 one rated about 1,000, and every door is rated higher than the one before/, /Doors 1 to 18 are Easy: singles only\. Doors 19 to 24 are Medium/],
       nb: [/rundt 100, bak luke 24 en med rundt 1\s000, og hver luke har høyere poengsum enn den før/, /Luke 1 til 18 er Lett: bare singler\. Luke 19 til 24 er Middels/],
-      es: [/de unos 100, y en la casilla 24 uno de unos 1000; cada casilla tiene una puntuación más alta que la anterior/, /Las casillas 1 a 18 son de nivel Fácil: solo únicos\. Las casillas 19 a 24 son de nivel Medio/]
+      es: [/de unos 100, y en la casilla 24 uno de unos 1000; cada casilla tiene una puntuación más alta que la anterior/, /Las casillas 1 a 18 son de nivel Fácil: solo únicos\. Las casillas 19 a 24 son de nivel Medio/],
+      zh: [/在 HoDoKu 量表上約為 100 分，第 24 扇約為 1,000 分，而且每扇的評分都比前一扇高/, /第 1 至 18 扇為簡單：只需使用唯一數。第 19 至 24 扇為中等/]
     };
     for (const lang of LEARN_LANGS) {
       const { html } = PAGE[lang];

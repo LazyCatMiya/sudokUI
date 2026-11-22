@@ -72,6 +72,7 @@ import { PRIVACY, PRIVACY_URL } from '../src/content/privacy';
 import { buildLearnPages, buildSitemap, SITE as PAGES_SITE } from '../src/content/learnPages';
 import { STATIC_ROUTES } from '../src/content/staticRoutes';
 import { HOME_LANGS } from '../src/content/home';
+import type { Lang } from '../src/state/settings';
 import { version } from '../package.json';
 import { readFileSync } from 'node:fs';
 
@@ -1131,7 +1132,7 @@ describe('the privacy page', () => {
 
   it('names every landing word, the home pages, and the kind of game and language on a play line, in every language', () => {
     /** how each language's page says each word a landing can be (LANDING_FROM) */
-    const WORDS: Record<'en' | 'nb' | 'es', Record<(typeof LANDING_FROM)[number], string>> = {
+    const WORDS: Record<Lang, Record<(typeof LANDING_FROM)[number], string>> = {
       en: {
         none: 'none (',
         search: 'a search engine',
@@ -1188,13 +1189,33 @@ describe('the privacy page', () => {
         fediverse: 'Lemmy o Mastodon',
         press: 'un sitio de noticias',
         other: 'u otro sitio u otra app'
+      },
+      zh: {
+        none: '無（',
+        search: '搜尋引擎',
+        ai: 'AI 助理',
+        reddit: 'Reddit',
+        enjoysudoku: 'Enjoy Sudoku 論壇',
+        hackernews: 'Hacker News',
+        facebook: 'Facebook',
+        discord: 'Discord',
+        social: '其他社群網站或應用程式',
+        chat: '聊天應用程式或網站',
+        mail: '郵件應用程式或網頁郵件',
+        github: 'GitHub',
+        sudoku: '其他數獨網站',
+        directory: '應用程式目錄',
+        fediverse: 'Lemmy 或 Mastodon',
+        press: '新聞網站',
+        other: '或其他網站或應用程式'
       }
     };
     /** the two fields of a play line, and the home pages among the landings */
     const FIELDS = {
       en: ['a new puzzle, a practice puzzle, or one opened from a link someone shared', 'the language the app is set to', 'a daily puzzle’s link or the home page', 'or the home page, opened from outside'],
       nb: ['en ny oppgave, en øvingsoppgave eller en som ble åpnet fra en lenke noen delte', 'språket appen er satt til', 'en lenke til dagens sudoku eller forsiden, på et hvilket som helst av de tre språkene', 'en lenke til dagens sudoku eller forsiden som åpnes'],
-      es: ['un sudoku nuevo, un sudoku de práctica o uno abierto desde un enlace que alguien compartió', 'el idioma en que está la app', 'el enlace de un sudoku del día o la página de inicio', 'el del sudoku del día o la página de inicio, abiertos']
+      es: ['un sudoku nuevo, un sudoku de práctica o uno abierto desde un enlace que alguien compartió', 'el idioma en que está la app', 'el enlace de un sudoku del día o la página de inicio', 'el del sudoku del día o la página de inicio, abiertos'],
+      zh: ['新題目、練習題目、從他人分享的連結開啟的題目', '應用程式設定的語言', '每日數獨連結或首頁', '或首頁，是從 sudokui.app 外部']
     };
     for (const lang of HOME_LANGS) {
       const text = PRIVACY[lang].sections.flatMap((s) => s.paragraphs).join(' ');
@@ -1205,7 +1226,8 @@ describe('the privacy page', () => {
     const TAG = {
       en: ['When the browser reports nothing, the server reads one tag in the link itself, utm_source', 'utm_source=chatgpt.com', 'ChatGPT, Perplexity, Claude, Gemini or Copilot, the word is “an AI assistant”', 'Nothing else in the link is read for this word, and the tag is not kept'],
       nb: ['Når nettleseren ikke oppgir noe, leser tjeneren én merkelapp i selve lenken, utm_source', 'utm_source=chatgpt.com', 'ChatGPT, Perplexity, Claude, Gemini eller Copilot, blir ordet «en KI-assistent»', 'Ingenting annet i lenken leses for dette ordet, og merkelappen beholdes ikke'],
-      es: ['Si el navegador no indica nada, el servidor lee una sola etiqueta del propio enlace, utm_source', 'utm_source=chatgpt.com', 'ChatGPT, Perplexity, Claude, Gemini o Copilot, la palabra es «un asistente de IA»', 'No se lee nada más del enlace para esta palabra, y la etiqueta no se guarda']
+      es: ['Si el navegador no indica nada, el servidor lee una sola etiqueta del propio enlace, utm_source', 'utm_source=chatgpt.com', 'ChatGPT, Perplexity, Claude, Gemini o Copilot, la palabra es «un asistente de IA»', 'No se lee nada más del enlace para esta palabra, y la etiqueta no se guarda'],
+      zh: ['瀏覽器未回報時，伺服器會讀取連結中的一個標籤 utm_source', 'utm_source=chatgpt.com', 'ChatGPT、Perplexity、Claude、Gemini 或 Copilot 的位址，該詞便是「AI 助理」', '不會為此詞讀取連結中的其他內容，標籤也不會保留']
     };
     for (const lang of HOME_LANGS) {
       const text = PRIVACY[lang].sections.flatMap((s) => s.paragraphs).join(' ');
@@ -1223,13 +1245,15 @@ describe('the privacy page', () => {
     const WORDS = {
       en: ['one per share, while online', 'a link or a picture you share (below)', 'or a picture of the board: one kind, whether or not a hint is drawn on it, and the line does not say which', 'was copied or was saved', 'not the picture', 'The picture is made on your device and is never sent to sudokui.app', 'is remembered on your device for the next picture'],
       nb: ['én per deling, bare på nett', 'en lenke eller et bilde du deler (se under)', 'eller et bilde av brettet: én type, enten det er tegnet inn et hint eller ikke, og linjen sier ikke hvilken av delene', 'ble kopiert eller ble lagret', 'ikke bildet', 'Bildet lages på enheten din og sendes aldri til sudokui.app', 'huskes på enheten din til neste bilde'],
-      es: ['una por enlace o imagen compartidos', 'un enlace o una imagen que compartes (más abajo)', 'o una imagen del tablero: un solo tipo, tenga o no una pista dibujada, y la línea no dice si la tiene', 'se copió o se guardó', 'ni la imagen', 'La imagen se crea en tu dispositivo y nunca se envía a sudokui.app', 'se recuerda en tu dispositivo para la próxima imagen']
+      es: ['una por enlace o imagen compartidos', 'un enlace o una imagen que compartes (más abajo)', 'o una imagen del tablero: un solo tipo, tenga o no una pista dibujada, y la línea no dice si la tiene', 'se copió o se guardó', 'ni la imagen', 'La imagen se crea en tu dispositivo y nunca se envía a sudokui.app', 'se recuerda en tu dispositivo para la próxima imagen'],
+      zh: ['上線時，每場遊戲兩行匿名資料，每次分享一行', '你分享連結或圖片時的資料行（見下文）', '或棋盤圖片；圖片是否畫有提示仍屬同一種類，資料行不會指出是否有提示', '複製或儲存', '不會傳送連結、文字、圖片', '圖片在你的裝置上製作，絕不會傳送至 sudokui.app', '只會在裝置上記住以供下一張圖片使用']
     };
     // the section that says so names pictures in its heading
     const HEADINGS = {
       en: 'Share links and pictures, and visits from other sites',
       nb: 'Delingslenker og bilder, og besøk fra andre nettsteder',
-      es: 'Enlaces e imágenes para compartir, y visitas desde otros sitios'
+      es: 'Enlaces e imágenes para compartir, y visitas desde otros sitios',
+      zh: '分享連結與圖片，以及來自其他網站的造訪'
     };
     for (const lang of HOME_LANGS) {
       const c = PRIVACY[lang];
